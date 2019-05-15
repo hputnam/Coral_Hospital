@@ -13,25 +13,25 @@ library(tidyverse)
 library(dplyr)
 library(reshape2)
 library(gridExtra)
+library(FSA)
 
 setwd("~/MyProjects/Coral_Hospital/RAnalysis/")
 
 ##### Empty tank Heater test #####
+Tank1 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_1.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank2 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_2.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank2 <- Tank2[1:nrow(Tank1),]
+Tank3 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_3.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank3 <- Tank3[1:nrow(Tank1),]
+Tank4 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_4.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank4 <- Tank4[1:nrow(Tank1),]
+Tank5 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_5.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank5 <- Tank5[1:nrow(Tank1),]
+Tank6 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_6.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank6 <- Tank6[1:nrow(Tank1),]
 
-#Tank1 <- read.csv("Data/Hobo_Loggers/20190510/20190510_Tank1.csv", sep=",", skip=c(40), header=FALSE, na.strings = "NA")[ ,2:3]
-#Tank2 <- read.csv("Data/Hobo_Loggers/20190510/20190510_Tank2.csv", sep=",", skip=c(40), header=FALSE, na.strings = "NA")[ ,2:3]
-#Tank2 <- Tank2[1:nrow(Tank1),]
-Tank3 <- read.csv("Data/Hobo_Loggers/20190510/20190510_Tank_3.csv", sep=",", skip=c(40), header=FALSE, na.strings = "NA")[ ,2:3]
-#Tank3 <- Tank3[1:nrow(Tank1),]
-Tank4 <- read.csv("Data/Hobo_Loggers/20190510/20190510_Tank_4.csv", sep=",", skip=c(40), header=FALSE, na.strings = "NA")[ ,2:3]
-Tank4 <- Tank4[1:nrow(Tank3),]
-Tank5 <- read.csv("Data/Hobo_Loggers/20190510/20190510_Tank_5.csv", sep=",", skip=c(40), header=FALSE, na.strings = "NA")[ ,2:3]
-Tank5 <- Tank5[1:nrow(Tank3),]
-Tank6 <- read.csv("Data/Hobo_Loggers/20190510/20190510_Tank_6.csv", sep=",", skip=c(40), header=FALSE, na.strings = "NA")[ ,2:3]
-Tank6 <- Tank6[1:nrow(Tank3),]
-
-data <- cbind(Tank3, Tank4$V3, Tank5$V3, Tank6$V3)
-colnames(data) <- c("Date.Time", "Tank3", "Tank4", "Tank5", "Tank6")
+data <- cbind(Tank1, Tank2$V3, Tank3$V3, Tank4$V3, Tank5$V3, Tank6$V3)
+colnames(data) <- c("Date.Time", "Tank1","Tank2", "Tank3", "Tank4", "Tank5", "Tank6")
 data <- data [1:(nrow(data )-10),]
 data$Date.Time <- parse_date_time(data$Date.Time, "%m/%d/%y %I:%M:%S %p", tz="HST")
 
@@ -103,49 +103,46 @@ data$Date.Time <- parse_date_time(data$Date.Time, "%m/%d/%y %I:%M:%S %p", tz="HS
 # data.recovery <- data[15202:(nrow(data)-2),]
 # head(data.recovery) #20181219
 # tail(data.recovery) #2090117
+#####
 
 pdf("~/MyProjects/Coral_Hospital/RAnalysis/Output/Temps.pdf")
 #par(mfrow=c(1,3))
-plot(data$Date.Time, data$Tank3, cex=0.2, col="red", ylim=c(21,31), ylab="Temperature °C", xlab="Date and Time")
-points(data$Date.Time, data$Tank4, cex=0.2, col="orange")
-points(data$Date.Time, data$Tank5, cex=0.2, col="yellow")
-points(data$Date.Time, data$Tank6, cex=0.2, col="green")
+plot(data$Date.Time, data$Tank1, cex=0.2, col="lightblue", ylim=c(25.5,30), ylab="Temperature °C", xlab="Date and Time")
+points(data$Date.Time, data$Tank2, cex=0.2, col="pink")
+points(data$Date.Time, data$Tank3, cex=0.2, col="coral")
+points(data$Date.Time, data$Tank4, cex=0.2, col="blue")
+points(data$Date.Time, data$Tank5, cex=0.2, col="red")
+points(data$Date.Time, data$Tank6, cex=0.2, col="darkblue")
 dev.off()
 
-x <- gather(data.trt)
+x <- gather(data)
 x <- x[ grep("Date.Time", x$key, invert = TRUE) , ] 
+colnames(x) <- c("Tank.Name", "value")
 
 Info <- read.csv("Data/Tank_to_Treatment.csv", header=TRUE, sep=",")
 Info$Tank.Name <- as.character(Info$Tank.Name)
 
-means <- aggregate(value~key, data=x, FUN=mean)
-ses <- aggregate(value~key, data=x, FUN=std.error)
+means <- aggregate(value~Tank.Name, data=x, FUN=mean)
+ses <- aggregate(value~Tank.Name, data=x, FUN=std.error)
 means$se <- ses$value
 colnames(means) <- c("Tank.Name", "mean", "se")
 
 means <- merge(means, Info, by="Tank.Name")
-boxplot(means$mean ~ as.factor(means$Tank.Name) )
+boxplot(means$mean ~ as.factor(means$Tank.Name), las=2, ylab="Temperature °C", xlab="Tank" )
 
+data.trt <- merge(x, Info, by="Tank.Name")
 
-data.hrly <- data.trt[c(180:nrow(data.trt)),]
-data.hrly$hourly <- format(as.POSIXct(data.hrly$Date.Time) ,format = "%H")
-data.hrly <- melt(data.hrly)
-data.hrly <- subset(data.hrly, variable!="Date.Time")
+tmps <- Summarize(value~ Treatment,data=data.trt)
+tmps$se <-  tmps$sd/sqrt(tmps$n)
 
-temp.sums <- aggregate(value~variable*hourly, data=data.hrly, FUN=mean)
-ses <- aggregate(value~variable*hourly, data=data.hrly, FUN=std.error)
-temp.sums$se <- ses$value
-temp.sums$hour <-as.factor(as.numeric(temp.sums$hour))
-colnames(temp.sums) <- c("Tank.Name", "hour", "mean", "se")
-
-#Tank Temperature Data 
-Fig2 <- ggplot(temp.sums) + #Plot average diurnal cycle of temperature data
-  geom_point(aes(x = as.factor(hour), y = mean), colour="darkgray", cex=0.2) + #Plot points using time as the x axis, light as the Y axis and black dots
-  geom_errorbar(aes(x=as.factor(hour), ymax=mean+se, ymin=mean-se), position=position_dodge(0.9), data=temp.sums, col="black", width=0.1) + #set values for standard error bars and offset on the X axis for clarity
-  #scale_x_discrete(breaks=c("01:00", "06:00", "12:00", "18:00", "23:00")) + #set discrete breaks on the X axis
-  ggtitle("Hourly Tank Temperature") + #Label the graph with the main title
-  ylim(21.5,28.5) + #Set Y axis limits
-  xlab("Time") + #Label the X Axis
+#Tank Temperature Data
+pdf("~/MyProjects/Coral_Hospital/RAnalysis/Output/Trt_Temps.pdf")
+ ggplot(data=tmps, aes(x=Treatment, y=mean, colour=Treatment)) + #Plot average diurnal cycle of temperature data
+   geom_point(size=2, position=position_dodge(.1), colour="black") + #Plot points using time as the x axis, light as the Y axis and black dots
+  geom_errorbar(aes(x=Treatment, ymax=mean+se, ymin=mean-se), position=position_dodge(0.9), data=tmps, col="black", width=0.1) + #set values for standard error bars and offset on the X axis for clarity
+ ggtitle("Treatment Temperature") + #Label the graph with the main title
+  ylim(26,28.5) + #Set Y axis limits
+  xlab("Treatment") + #Label the X Axis
   ylab("Temperature (°C)") + #Label the Y Axis
   theme_bw() + #Set the background color
   theme(axis.line = element_line(color = 'black'), #Set the axes color
@@ -157,8 +154,4 @@ Fig2 <- ggplot(temp.sums) + #Plot average diurnal cycle of temperature data
         plot.background=element_blank(), #Set the plot background
         panel.border=element_rect(size=1.25, fill = NA), #set outer border
         plot.title=element_text(hjust=0)) #Justify the title to the top left
-Fig2 #View figure
-
-Tmp.Figs <- arrangeGrob(Fig2, ncol=1)
-ggsave(file="Output/Hourly_Avg_temps.pdf", Tmp.Figs, width = 4, height = 3, units = c("in"))
-
+dev.off()

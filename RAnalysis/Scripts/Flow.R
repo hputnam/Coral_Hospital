@@ -2,7 +2,7 @@
 #Project: NSF BSF
 #Author: HM Putnam 
 #Edited by: HM Putnam
-#Date Last Modified: 20180927
+#Date Last Modified: 20190515
 #See Readme file for details
 
 rm(list=ls()) #clears workspace 
@@ -10,22 +10,17 @@ rm(list=ls()) #clears workspace
 #Read in required libraries
 ##### Include Versions of libraries
 
-rm(list=ls()) #clears workspace 
-
-#Read in required libraries
-##### Include Versions of libraries
-
 # Set Working Directory:
-setwd("~/MyProjects/Holobiont_Integration/RAnalysis/Data/") #set working
+setwd("~/MyProjects/Coral_Hospital//RAnalysis/") #set working
 
 # load data 
-Tank.Info <-read.csv('Tank_to_Treatment.csv', header=T, sep=",")
-FlowData<-read.csv('Flow_rate.csv', header=T, sep=",")
+Tank.Info <-read.csv('Data/Tank_to_Treatment.csv', header=T, sep=",")
+FlowData<-read.csv('Data/Flow_rate.csv', header=T, sep=",")
 FlowData<- merge(FlowData,Tank.Info, by="Tank" )
 FlowData$ml.sec <- FlowData$Volume.ml/FlowData$Time.sec
 
-pdf("../Output/Flow.by.Position.Treatment.pdf")
-par(mfrow=c(2,2))
+pdf("Output/Flow.by.Position.Treatment.pdf")
+par(mfrow=c(2,1))
 boxplot(ml.sec ~ Tank, data=FlowData, xlab="Tank", ylab="Flow rate ml sec -1")
 boxplot(ml.sec ~ Treatment, data=FlowData, xlab="Tank", ylab="Flow rate ml sec -1")
 dev.off()
