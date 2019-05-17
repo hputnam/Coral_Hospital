@@ -44,18 +44,11 @@ Data$Red.Norm.Coral <- Data$Red.Coral/Data$Red.Standard #normalize to color stan
 Data$Green.Norm.Coral <- Data$Green.Coral/Data$Green.Standard #normalize to color standard
 Data$Blue.Norm.Coral <- Data$Blue.Coral/Data$Blue.Standard #normalize to color standard
 
-# xxx <- subset(Data, Timepoint=="Time5")
-# xxx <- subset(xxx, Species.x=="Pocillopora")
-# xxx <- subset(xxx, Treatment.x=="ATHC")
-# par(mfrow=c(1,3))
-# plot(xxx$Red.Norm.Coral ~ xxx$Tank)
-# plot(xxx$Green.Norm.Coral ~ xxx$Tank)
-# plot(xxx$Blue.Norm.Coral ~ xxx$Tank)
+par(mfrow=c(1,3))
+plot(Data$Red.Norm.Coral ~ Data$Tank)
+plot(Data$Green.Norm.Coral ~ Data$Tank)
+plot(Data$Blue.Norm.Coral ~ Data$Tank)
 
-
-#Red.Norm.Coral <- Data$Red.Coral/Data$Red.Standard #normalize to color standard
-#Green.Norm.Coral <- Data$Green.Coral/Data$Green.Standard #normalize to color standard
-#Blue.Norm.Coral <- Data$Blue.Coral/Data$Blue.Standard #normalize to color standard
 
 blch.scor <- as.matrix(cbind(Data$Red.Norm.Coral,Data$Green.Norm.Coral,Data$Blue.Norm.Coral)) #create matrix
 rownames(blch.scor) <- Data$PLUG.ID #name columns in dataframe
@@ -100,20 +93,20 @@ stripchart(Bleaching.Score ~ Group, vertical = TRUE, data = Blch,
 #text(x= 0.5, y= max(Blch$Bleaching.Score)+2, labels= "dark") #add text to indicate dark and pale on graphic
 dev.off()
 
-mod1 <- aov(sqrt(Bleaching.Score+200) ~ Treatment*Timepoint*Species, data=Blch) #run an ANOVA by Genotype
+mod1 <- aov(sqrt(Bleaching.Score+200) ~ Treatment*Species, data=Blch) #run an ANOVA by Genotype
 hist(residuals(mod1)) #look at normality of data
 boxplot(residuals(mod1)) #look at normality of data
 summary(mod1)
 
 
-marginal = lsmeans(mod1, ~ Treatment*Timepoint*Species)
+marginal = lsmeans(mod1, ~ Treatment*Species)
 
 CLD = cld(marginal,
           alpha=0.05,
           Letters=letters,
           adjust="tukey")
 
-CLD <- CLD[order(CLD$Timepoint, CLD$Treatment, CLD$Species),]
+CLD <- CLD[order( CLD$Treatment, CLD$Species),]
 CLD
 
 All.Means <- ddply(Blch, c('Timepoint','Species', 'Treatment'), summarize,
@@ -126,7 +119,7 @@ All.Means$Group <- paste(All.Means$Timepoint, All.Means$Treatment, All.Means$Spe
 All.Means$SpGroup <- paste(All.Means$Treatment, All.Means$Species)
 
 cols <- c("lightblue", "blue", "pink", "red")
-All.Means$Timepoint <- factor(All.Means$Timepoint, levels = c("Week1", "Week2", "Week3", "Week4", "Week5", "Week6", "Week7", "Week8", "Week9", "Week10", "Week11", "Week12", "Week13", "Week14", "Week15", "Week16"))
+#All.Means$Timepoint <- factor(All.Means$Timepoint, levels = c("Week1", "Week2", "Week3", "Week4", "Week5", "Week6", "Week7", "Week8", "Week9", "Week10", "Week11", "Week12", "Week13", "Week14", "Week15", "Week16"))
 #All.Means$Timepoint <- factor(All.Means$Timepoint, levels = c("Time1", "Time2", "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10", "Time11", "Time12", "Time13", "Time14", "Time15", "Time16"))
 
 rec <- data.frame(x1=c(1,3,1,5,4))
@@ -135,7 +128,7 @@ rec <- data.frame(x1=c(1,3,1,5,4))
 Fig.All <- ggplot(All.Means, aes(x=Timepoint, y=mean, group=SpGroup)) + 
   geom_line(aes(linetype= Species, colour=Treatment, group=SpGroup), position = position_dodge(width = 0.1), alpha=0.5) + # colour, group both depend on cond2
   geom_errorbar(aes(ymin=All.Means$mean-All.Means$se, ymax=All.Means$mean+All.Means$se), colour="black", width=0, size=0.5, position = position_dodge(width = 0.1)) +
-  geom_point(aes(colour=Treatment, shape=Species), size = 1, position = position_dodge(width = 0.1)) +
+  geom_point(aes(colour=Treatment, shape=Species), size = 4, position = position_dodge(width = 0.1)) +
   scale_colour_manual(values=cols) +
   #annotate("text", x=43, y=1.85, label = "a", size = 3) + #add text to the graphic for posthoc letters
   #annotate("text", x=132, y=2.15, label = "b", size = 3) + #add text to the graphic for posthoc letters
@@ -144,7 +137,7 @@ Fig.All <- ggplot(All.Means, aes(x=Timepoint, y=mean, group=SpGroup)) +
   #annotate("text", x=35, y=0.5, label = ".", size = 1) + #add text to the graphic for posthoc letters
   xlab("Timepoint") +
   ylab(expression(paste("Bleaching Score"))) +
-  ylim(-110,30) +
+  #ylim(-110,30) +
   theme_bw() + #Set the background color
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), #Set the text angle
         axis.line = element_line(color = 'black'), #Set the axes color
