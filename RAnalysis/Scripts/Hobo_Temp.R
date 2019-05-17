@@ -18,22 +18,22 @@ library(FSA)
 setwd("~/MyProjects/Coral_Hospital/RAnalysis/")
 
 ##### Empty tank Heater test #####
-Tank1 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_1.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
-Tank2 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_2.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank1 <- read.csv("Data/Hobo_Loggers/20190516/20190514_Tank_1.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank2 <- read.csv("Data/Hobo_Loggers/20190516/20190514_Tank_2.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank2 <- Tank2[1:nrow(Tank1),]
-Tank3 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_3.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank3 <- read.csv("Data/Hobo_Loggers/20190516/20190514_Tank_3.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank3 <- Tank3[1:nrow(Tank1),]
-Tank4 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_4.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank4 <- read.csv("Data/Hobo_Loggers/20190516/20190514_Tank_4.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank4 <- Tank4[1:nrow(Tank1),]
-Tank5 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_5.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank5 <- read.csv("Data/Hobo_Loggers/20190516/20190514_Tank_5.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank5 <- Tank5[1:nrow(Tank1),]
-Tank6 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_6.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank6 <- read.csv("Data/Hobo_Loggers/20190516/20190514_Tank_6.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank6 <- Tank6[1:nrow(Tank1),]
 
 data <- cbind(Tank1, Tank2$V3, Tank3$V3, Tank4$V3, Tank5$V3, Tank6$V3)
 colnames(data) <- c("Date.Time", "Tank1","Tank2", "Tank3", "Tank4", "Tank5", "Tank6")
 data <- data [1:(nrow(data )-10),]
-data$Date.Time <- parse_date_time(data$Date.Time, "%m/%d/%y %I:%M:%S %p", tz="HST")
+data$Date.Time <- parse_date_time(data$Date.Time, "%m/%d/%y %I:%M", tz="HST")
 
 
 # ##### Cross Calibration and Acclimation data ####
