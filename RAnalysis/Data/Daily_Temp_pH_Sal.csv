@@ -41,7 +41,24 @@ Date,Calib.Date,Time,Sample.ID,Treatment,Type,TA.Run,Temperature,pH.MV,Salinity,
 5.15.19, 5.13.19, 13:20, Tank 4, Ambient,,,27.24,,,,All temps on 5.15.19 taken from the center of the tank using Apogee Thermometer
 5.15.19, 5.13.19, 13:21, Tank 5, Heat,,,27.98,,,,All temps on 5.15.19 taken from the center of the tank using Apogee Thermometer
 5.15.19, 5.13.19, 13:22, Tank 6, Ambient,,,27.27,,,,All temps on 5.15.19 taken from the center of the tank using Apogee Thermometer
-
+5.15.19, 5.13.19, 17:39, Tank 1, Ambient,,,27.46,,,,All temps on 5.15.19 taken from the center of the tank using Apogee Thermometer
+5.15.19, 5.13.19, 17:40, Tank 2, Heat,,,28.63,,,,All temps on 5.15.19 taken from the center of the tank using Apogee Thermometer
+5.15.19, 5.13.19, 17:40, Tank 3, Heat,,,28.90,,,,All temps on 5.15.19 taken from the center of the tank using Apogee Thermometer
+5.15.19, 5.13.19, 17:41, Tank 4, Ambient,,,27.49,,,,All temps on 5.15.19 taken from the center of the tank using Apogee Thermometer
+5.15.19, 5.13.19, 17:42, Tank 5, Heat,,,28.41,,,,All temps on 5.15.19 taken from the center of the tank using Apogee Thermometer
+5.15.19, 5.13.19, 17:43, Tank 6, Ambient,,,27.48,,,,All temps on 5.15.19 taken from the center of the tank using Apogee Thermometer
+5.16.19, 5.13.19, 9:00, Tank 1, Ambient,,,26.96,,,,
+5.16.19, 5.13.19, 9:00, Tank 2, Heat,,, 28.23,,,,
+5.16.19, 5.13.19, 9:01, Tank 3, Heat,,, 28.47,,,,
+5.16.19, 5.13.19, 9:02, Tank 4, Ambient,,, 27.02,,,,
+5.16.19, 5.13.19, 9:03, Tank 5, Heat,,, 27.96,,,,
+5.16.19, 5.13.19, 9:04, Tank 6, Ambient,,, 27.02,,,,
+5.16.19, 5.13.19, 13:41, Tank 1, Ambient,,,27.23,,,,
+5.16.19, 5.13.19, 13:41, Tank 2, Heat,,, 28.46,,,,
+5.16.19, 5.13.19, 13:42, Tank 3, Heat,,, 28.75,,,,
+5.16.19, 5.13.19, 13:43, Tank 4, Ambient,,, 27.24,,,,
+5.16.19, 5.13.19, 13:43, Tank 5, Heat,,, 28.42,,,,
+5.16.19, 5.13.19, 13:44, Tank 6, Ambient,,, 27.23,,,,
 ,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,
