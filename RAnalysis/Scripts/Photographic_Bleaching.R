@@ -67,7 +67,7 @@ Blch$Group <- paste(Blch$Timepoint, Blch$Treatment, Blch$Species)
 Blch$SpGroup <- paste(Blch$Treatment, Blch$Species)
 Blch$Bleaching.Score <- Blch$`PCA.color$scores[, 1]`
 
-#Blch$Bleaching.Score <- -Blch$Bleaching.Score
+Blch$Bleaching.Score <- -Blch$Bleaching.Score
 
 # write.table(Blch,"~/MyProjects/Holobiont_Integration/RAnalysis/Output/Bleaching_Score.csv",sep=",", row.names=FALSE)
 
@@ -120,7 +120,7 @@ All.Means$se[is.na(All.Means$se)] <- 0
 All.Means$Group <- paste(All.Means$Timepoint, All.Means$Treatment, All.Means$Species)
 All.Means$SpGroup <- paste(All.Means$Treatment, All.Means$Species)
 
-cols <- c("lightblue", "blue", "pink", "red")
+cols <- c("blue", "red")
 #All.Means$Timepoint <- factor(All.Means$Timepoint, levels = c("Week1", "Week2", "Week3", "Week4", "Week5", "Week6", "Week7", "Week8", "Week9", "Week10", "Week11", "Week12", "Week13", "Week14", "Week15", "Week16"))
 #All.Means$Timepoint <- factor(All.Means$Timepoint, levels = c("Time1", "Time2", "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10", "Time11", "Time12", "Time13", "Time14", "Time15", "Time16"))
 
@@ -130,7 +130,7 @@ rec <- data.frame(x1=c(1,3,1,5,4))
 Fig.All <- ggplot(All.Means, aes(x=Timepoint, y=mean, group=SpGroup)) + 
   geom_line(aes(linetype= Species, colour=Treatment, group=SpGroup), position = position_dodge(width = 0.1), alpha=0.5) + # colour, group both depend on cond2
   geom_errorbar(aes(ymin=All.Means$mean-All.Means$se, ymax=All.Means$mean+All.Means$se), colour="black", width=0, size=0.5, position = position_dodge(width = 0.1)) +
-  geom_point(aes(colour=Treatment, shape=Species), size = 4, position = position_dodge(width = 0.1)) +
+  geom_point(aes(colour=Treatment, shape=Species), size = 2, position = position_dodge(width = 0.1)) +
   scale_colour_manual(values=cols) +
   #annotate("text", x=43, y=1.85, label = "a", size = 3) + #add text to the graphic for posthoc letters
   #annotate("text", x=132, y=2.15, label = "b", size = 3) + #add text to the graphic for posthoc letters
@@ -154,6 +154,8 @@ Fig.All <- ggplot(All.Means, aes(x=Timepoint, y=mean, group=SpGroup)) +
                                   hjust = 0))
 Fig.All
 
+Bch.Figs <- arrangeGrob(Fig.All, ncol=1)
+ggsave(file="Output/Photo_Bch.pdf", Bch.Figs, width = 4, height = 3, units = c("in"))
 
 
 # paling <- ggline(Blch, x = "Timepoint", y = "Bleaching.Score", color = "Group", group="Species",
@@ -250,5 +252,4 @@ Pact.bch <- ggline(Pact.Blch, x = "Timepoint", y = "Bleaching.Score", color = "T
                    title = "P. acuta",
                    palette = c( "darkblue", "red"))
 
-Bch.Figs <- arrangeGrob(Fig.All, ncol=1)
-ggsave(file="Output/Photo_Bch.pdf", Bch.Figs, width = 4, height = 3, units = c("in"))
+
