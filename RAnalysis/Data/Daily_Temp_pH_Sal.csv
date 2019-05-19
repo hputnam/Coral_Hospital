@@ -94,7 +94,8 @@ Date,Calib.Date,Time,Sample.ID,Treatment,Type,TA.Run,Temperature,pH.MV,Salinity,
 5.18.19, 5.13.19, 19:31, Tank 3, Heat,,,29.01,,,,,,,,
 5.18.19, 5.13.19, 19:31, Tank 4, Ambient,,,27.18,,,,,,,,
 5.18.19, 5.13.19, 19:32, Tank 5, Heat,,,29.20,,,,,,,,
-5.18.19, 5.13.19, 19:33, Tank 6, Ambient,,,27.16,,,,,,,,Tried doing the pH and temp curve but the R2 value wasn't high enough and then all the lights went out so I am going to start recording these values come tomorrow
+5.18.19, 5.13.19, 19:33, Tank 6, Ambient,,,27.16,,,,,,,Tried doing the pH and temp curve but the R2 value wasn't high enough and then all the lights went out so I am going to start recording these values come tomorrow
+,
 ,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,
