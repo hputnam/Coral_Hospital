@@ -18,22 +18,22 @@ library(FSA)
 setwd("~/MyProjects/Coral_Hospital/RAnalysis/")
 
 ##### Empty tank Heater test #####
-Tank1 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_1.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
-Tank2 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_2.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank1 <- read.csv("Data/Hobo_Loggers/20190518/20190518_Tank_1.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank2 <- read.csv("Data/Hobo_Loggers/20190518/20190518_Tank_2.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank2 <- Tank2[1:nrow(Tank1),]
-Tank3 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_3.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank3 <- read.csv("Data/Hobo_Loggers/20190518/20190518_Tank_3.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank3 <- Tank3[1:nrow(Tank1),]
-Tank4 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_4.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank4 <- read.csv("Data/Hobo_Loggers/20190518/20190518_Tank_4.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank4 <- Tank4[1:nrow(Tank1),]
-Tank5 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_5.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank5 <- read.csv("Data/Hobo_Loggers/20190518/20190518_Tank_5.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank5 <- Tank5[1:nrow(Tank1),]
-Tank6 <- read.csv("Data/Hobo_Loggers/20190514/20190514_Tank_6.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank6 <- read.csv("Data/Hobo_Loggers/20190518/20190518_Tank_6.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank6 <- Tank6[1:nrow(Tank1),]
 
 data <- cbind(Tank1, Tank2$V3, Tank3$V3, Tank4$V3, Tank5$V3, Tank6$V3)
 colnames(data) <- c("Date.Time", "Tank1","Tank2", "Tank3", "Tank4", "Tank5", "Tank6")
 data <- data [1:(nrow(data )-10),]
-#data$Date.Time <- parse_date_time(data$Date.Time, "%m/%d/%y %I:%M:%S %p" , tz="HST")
+data$Date.Time <- parse_date_time(data$Date.Time, "%m/%d/%y %I:%M:%S %p" , tz="HST")
 
 
 # ##### Cross Calibration and Acclimation data ####
@@ -107,33 +107,17 @@ data <- data [1:(nrow(data )-10),]
 
 tmp.col <- c("lightblue", "pink", "coral","blue","red", "darkblue")
 tnks <- c("Tank 1", "Tank 2","Tank 3", "Tank 4","Tank 5", "Tank 6")
-# Define the position of tick marks
-v1 <- c(0,
-        48,
-        96,
-        144,
-        192,
-        240,
-        288,
-        336,
-        384,
-        432,
-        480,
-        528,
-        576,
-        624,
-        672)
 
 pdf("~/MyProjects/Coral_Hospital/RAnalysis/Output/Temps.pdf")
 #par(mfrow=c(1,3))
 par(mar=c(6,6,2,2)) #sets the bottom, left, top and right
-plot(data$Date.Time, data$Tank1, cex=0.2, col="lightblue", ylim=c(25.5,30), ylab="Temperature °C", las=2)
+plot(data$Date.Time, data$Tank1, cex=0.2, col="lightblue", ylim=c(26,30), ylab="Temperature °C", xlab="Date and Time", las=2)
 points(data$Date.Time, data$Tank2, cex=0.2, col="pink")
 points(data$Date.Time, data$Tank3, cex=0.2, col="coral")
 points(data$Date.Time, data$Tank4, cex=0.2, col="blue")
 points(data$Date.Time, data$Tank5, cex=0.2, col="red")
 points(data$Date.Time, data$Tank6, cex=0.2, col="darkblue")
-legend(1, 30, legend=tnks, col=tmp.col, cex=0.6, lty=1, box.lty=0)
+legend(data$Date.Time[5], 30, legend=tnks, col=tmp.col, cex=0.6, lty=1, box.lty=0)
 dev.off()
 
 x <- gather(data, "Date.Time")
@@ -162,7 +146,7 @@ pdf("~/MyProjects/Coral_Hospital/RAnalysis/Output/Trt_Temps.pdf")
    geom_point(size=2, position=position_dodge(.1), colour="black") + #Plot points using time as the x axis, light as the Y axis and black dots
   geom_errorbar(aes(x=Treatment, ymax=mean+se, ymin=mean-se), position=position_dodge(0.9), data=tmps, col="black", width=0.1) + #set values for standard error bars and offset on the X axis for clarity
  ggtitle("Treatment Temperature") + #Label the graph with the main title
-  ylim(26.5,28.5) + #Set Y axis limits
+  ylim(25,30) + #Set Y axis limits
   xlab("Treatment") + #Label the X Axis
   ylab("Temperature (°C)") + #Label the Y Axis
   theme_bw() + #Set the background color
