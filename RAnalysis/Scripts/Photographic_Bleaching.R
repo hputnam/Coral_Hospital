@@ -67,6 +67,8 @@ Blch$Group <- paste(Blch$Timepoint, Blch$Treatment, Blch$Species)
 Blch$SpGroup <- paste(Blch$Treatment, Blch$Species)
 Blch$Bleaching.Score <- Blch$`PCA.color$scores[, 1]`
 
+#Blch$Bleaching.Score <- -Blch$Bleaching.Score
+
 # write.table(Blch,"~/MyProjects/Holobiont_Integration/RAnalysis/Output/Bleaching_Score.csv",sep=",", row.names=FALSE)
 
 write.table(Blch, file = "~/MyProjects/Coral_Hospital/RAnalysis/Output/Bleaching_Score.csv", append = FALSE, quote = TRUE, sep = ",",
@@ -93,13 +95,13 @@ stripchart(Bleaching.Score ~ Group, vertical = TRUE, data = Blch,
 #text(x= 0.5, y= max(Blch$Bleaching.Score)+2, labels= "dark") #add text to indicate dark and pale on graphic
 dev.off()
 
-mod1 <- aov(sqrt(Bleaching.Score+200) ~ Treatment*Species, data=Blch) #run an ANOVA by Genotype
+mod1 <- aov(sqrt(Bleaching.Score+200) ~ Timepoint*Treatment*Species, data=Blch) #run an ANOVA by Genotype
 hist(residuals(mod1)) #look at normality of data
 boxplot(residuals(mod1)) #look at normality of data
 summary(mod1)
 
 
-marginal = lsmeans(mod1, ~ Treatment*Species)
+marginal = lsmeans(mod1, ~ Timepoint*Treatment*Species)
 
 CLD = cld(marginal,
           alpha=0.05,
@@ -161,16 +163,16 @@ Fig.All
 # paling 
 
 
-Mcap.Blch <- subset(Blch, Species=="Montipora")
-Pact.Blch <- subset(Blch, Species=="Pocillopora")
+Mcap.Blch <- subset(Blch, Species=="M. capitata")
+Pact.Blch <- subset(Blch, Species=="P. acuta")
 
-Mcap.Means <- ddply(Mcap.Blch, c('Timepoint','Species', 'Treatment'), summarize,
+Mcap.Means <- ddply(Mcap.Blch, c('Timepoint', 'Treatment'), summarize,
                   mean= mean(Bleaching.Score, na.rm=T), #mean pnet
                   N = sum(!is.na(Bleaching.Score)), # sample size
                   se = sd(Bleaching.Score, na.rm=T)/sqrt(N)) #SE
 Mcap.Means
 
-Mcap.Means$Timepoint <- factor(Mcap.Means$Timepoint, levels = c("Time1", "Time2", "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10", "Time11", "Time12", "Time13", "Time14", "Time15", "Time16"))
+Mcap.Means$Timepoint <- factor(Mcap.Means$Timepoint, levels = c("Time0", "Time1")) # "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10", "Time11", "Time12", "Time13", "Time14", "Time15", "Time16"))
 
 Fig.MC <- ggplot(Mcap.Means, aes(x=Timepoint, y=mean, group=Treatment)) + 
   geom_errorbar(aes(ymin=Mcap.Means$mean-Mcap.Means$se, ymax=Mcap.Means$mean+Mcap.Means$se), colour="black", width=.1, position = position_dodge(width = 0.1)) +
@@ -184,7 +186,7 @@ Fig.MC <- ggplot(Mcap.Means, aes(x=Timepoint, y=mean, group=Treatment)) +
   #annotate("text", x=35, y=0.5, label = ".", size = 1) + #add text to the graphic for posthoc letters
   xlab("Timepoint") +
   ylab(expression(paste("Bleaching Score"))) +
-  ylim(-30,20) +
+  #ylim(-30,20) +
   theme_bw() + #Set the background color
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), #Set the text angle
         axis.line = element_line(color = 'black'), #Set the axes color
@@ -200,12 +202,12 @@ Fig.MC <- ggplot(Mcap.Means, aes(x=Timepoint, y=mean, group=Treatment)) +
 Fig.MC
 
 
-Pact.Means <- ddply(Pact.Blch, c('Timepoint','Species', 'Treatment'), summarize,
+Pact.Means <- ddply(Pact.Blch, c('Timepoint', 'Treatment'), summarize,
                     mean= mean(Bleaching.Score, na.rm=T), #mean pnet
                     N = sum(!is.na(Bleaching.Score)), # sample size
                     se = sd(Bleaching.Score, na.rm=T)/sqrt(N)) #SE
 Pact.Means
-Pact.Means$Timepoint <- factor(Pact.Means$Timepoint, levels = c("Time1", "Time2", "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10", "Time11", "Time12", "Time13", "Time14", "Time15", "Time16"))
+Pact.Means$Timepoint <- factor(Pact.Means$Timepoint, levels = c("Time0", "Time1")) #, "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10", "Time11", "Time12", "Time13", "Time14", "Time15", "Time16"))
 
 Fig.PA <- ggplot(Pact.Means, aes(x=Timepoint, y=mean, group=Treatment)) + 
   geom_errorbar(aes(ymin=Pact.Means$mean-Pact.Means$se, ymax=Pact.Means$mean+Pact.Means$se), colour="black", width=.1, position = position_dodge(width = 0.1)) +
@@ -219,7 +221,7 @@ Fig.PA <- ggplot(Pact.Means, aes(x=Timepoint, y=mean, group=Treatment)) +
   #annotate("text", x=35, y=0.5, label = ".", size = 1) + #add text to the graphic for posthoc letters
   xlab("Timepoint") +
   ylab(expression(paste("Bleaching Score"))) +
-  ylim(-110,20) +
+  #ylim(-110,20) +
   theme_bw() + #Set the background color
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), #Set the text angle
         axis.line = element_line(color = 'black'), #Set the axes color
@@ -237,16 +239,16 @@ Fig.PA
 
 
 Mcap.bch <- ggline(Mcap.Blch, x = "Timepoint", y = "Bleaching.Score", color = "Treatment",
-                  ylim=c(-60,10),
+                  ylim=c(-10,10),
                   add = c("mean_se", "jitter"),
                   title = "M. capitata",
-                  palette = c("lightblue", "darkblue","pink", "red"))
+                  palette = c("darkblue", "red"))
 
 Pact.bch <- ggline(Pact.Blch, x = "Timepoint", y = "Bleaching.Score", color = "Treatment",
-                   ylim=c(-60,10),
+                   ylim=c(-10,10),
                    add = c("mean_se", "jitter"),
                    title = "P. acuta",
-                   palette = c("lightblue", "darkblue","pink", "red"))
+                   palette = c( "darkblue", "red"))
 
 Bch.Figs <- arrangeGrob(Fig.All, ncol=1)
 ggsave(file="Output/Photo_Bch.pdf", Bch.Figs, width = 4, height = 3, units = c("in"))
