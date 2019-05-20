@@ -72,6 +72,8 @@ plot(na.omit(daily$Sample.ID[1:84]), na.omit(daily$Temperature[1:84]), las=2)
 #merge with Seawater chemistry file
 SW.chem <- merge(pH.cals, daily, by="Calib.Date")
 
+SW.chem <- SW.chem[with(SW.chem, order(Date, Time, Tank)), ]
+
 mvTris <- SW.chem$Temperature*SW.chem$Slope+SW.chem$Intercept #calculate the mV of the tris standard using the temperature mv relationships in the measured standard curves 
 STris<-35 #salinity of the Tris
 phTris<- (11911.08-18.2499*STris-0.039336*STris^2)*(1/(SW.chem$Temperature+273.15))-366.27059+ 0.53993607*STris+0.00016329*STris^2+(64.52243-0.084041*STris)*log(SW.chem$Temperature+273.15)-0.11149858*(SW.chem$Temperature+273.15) #calculate the pH of the tris (Dickson A. G., Sabine C. L. and Christian J. R., SOP 6a)
@@ -99,18 +101,18 @@ SW.chem$pH.Total<-phTris+(mvTris/1000-SW.chem$pH.MV/1000)/(R*(SW.chem$Temperatur
 # dev.off()
 
 ##### Treatment #####
-pdf("~/MyProjects/Holobiont_Integration/RAnalysis/Output/Daily_Treatment_Measures_Treatments.pdf")
+pdf("~/MyProjects/Coral_Hospital/RAnalysis/Output/Daily_Measures_Treatments.pdf")
 par(mfrow=c(1,3))
-plot(SW.chem$Treatment, SW.chem$Temperature, xlab="Treatment", ylab="Temperature°C", ylim=c(24,31))
-plot(SW.chem$Treatment, SW.chem$pH.Total, xlab="Treatment", ylab="pH Total Scale", ylim=c(7.0,8.3))
-plot(SW.chem$Treatment, SW.chem$Salinity, xlab="Treatment", ylab="Salinity psu", ylim=c(31,35))
+plot(SW.chem$Treatment, SW.chem$Temperature, xlab="Treatment", ylab="Temperature°C", ylim=c(26,30.5),las=2)
+plot(SW.chem$Treatment, SW.chem$pH.Total, xlab="Treatment", ylab="pH Total Scale", ylim=c(7.9,8.2),las=2)
+plot(SW.chem$Treatment, SW.chem$Salinity, xlab="Treatment", ylab="Salinity psu", ylim=c(31,35),las=2)
 dev.off()
 
-pdf("~/MyProjects/Holobiont_Integration/RAnalysis/Output/Daily_Tank_Measures_Treatment.pdf")
+pdf("~/MyProjects/Coral_Hospital/RAnalysis/Output/Daily_Measures_Tank.pdf")
 par(mfrow=c(1,3))
-plot(SW.chem2$Sample.ID, SW.chem2$Temperature, xlab="Tank", ylab="Temperature°C", ylim=c(24,31),las=2)
-plot(SW.chem2$Sample.ID, SW.chem2$pH.Total, xlab="Tank", ylab="pH Total Scale", ylim=c(7.0,8.3),las=2)
-plot(SW.chem2$Sample.ID, SW.chem2$Salinity, xlab="Tank", ylab="Salinity psu", ylim=c(31,36),las=2)
+plot(SW.chem$Tank, SW.chem$Temperature, xlab="Tank", ylab="Temperature°C", ylim=c(26,30.5),las=2)
+plot(SW.chem$Tank, SW.chem$pH.Total, xlab="Tank", ylab="pH Total Scale", ylim=c(7.9,8.2),las=2)
+plot(SW.chem$Tank, SW.chem$Salinity, xlab="Tank", ylab="Salinity psu", ylim=c(31,36),las=2)
 dev.off()
 
 

@@ -80,3 +80,11 @@ stripchart(PAR ~ Treatment, data = LightData,
            add = TRUE) 
 dev.off()
 
+tank.model <- lm(PAR ~ Tank,data=LightData)
+summary(tank.model)
+
+position.model <- lm(PAR ~ Position, data=LightData)
+summary(position.model)
+
+treatment.model <- lm(PAR ~ Treatment, data=LightData)
+summary(treatment.model)
