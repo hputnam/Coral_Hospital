@@ -49,7 +49,6 @@ plot(Data$Red.Norm.Coral ~ Data$Tank)
 plot(Data$Green.Norm.Coral ~ Data$Tank)
 plot(Data$Blue.Norm.Coral ~ Data$Tank)
 
-
 blch.scor <- as.matrix(cbind(Data$Red.Norm.Coral,Data$Green.Norm.Coral,Data$Blue.Norm.Coral)) #create matrix
 rownames(blch.scor) <- Data$PLUG.ID #name columns in dataframe
 
@@ -60,12 +59,12 @@ summary(PCA.color) # view variance explained by PCs
 
 Blch <- as.data.frame(PCA.color$scores[,1]) #extract PC1
 Blch$PLUG.ID <- rownames(blch.scor)
-Blch <- merge(Blch, Data, by="PLUG.ID")
-#Blch  <- cbind(Blch, Data$Timepoint, Data$Treatment, Data$Species) #make a dataframe of PC1 and experiment factors
-#colnames(Blch) <- c("Bleaching.Score", "PLUG.ID", "Timepoint", "Treatment", "Species")
+#Blch <- merge(Blch, Data, by="PLUG.ID")
+Blch  <- cbind(Blch, Data$Timepoint, Data$Treatment, Data$Species) #make a dataframe of PC1 and experiment factors
+colnames(Blch) <- c("Bleaching.Score", "PLUG.ID", "Timepoint", "Treatment", "Species")
 Blch$Group <- paste(Blch$Timepoint, Blch$Treatment, Blch$Species)
 Blch$SpGroup <- paste(Blch$Treatment, Blch$Species)
-Blch$Bleaching.Score <- Blch$`PCA.color$scores[, 1]`
+#Blch$Bleaching.Score <- Blch$`PCA.color$scores[, 1]`
 
 Blch$Bleaching.Score <- -Blch$Bleaching.Score
 
