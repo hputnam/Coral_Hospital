@@ -125,3 +125,9 @@ Date,Calib.Date,Time,Tank,Treatment,Type,Temperature,pH.MV,Salinity,Conductivity
 20190520,20190520, 19:35, Tank 4, Ambient,Treatment,27.32,NA,NA,NA,,,,
 20190520,20190520, 19:36, Tank 5, Heat,Treatment,29.09,NA,NA,NA,,,,Increased temps for the heated tanks at 13:41 - on temp 30 off temp 30.5
 20190520,20190520, 19:37, Tank 6, Ambient,Treatment,27.31,NA,NA,NA,,,,
+20190521,20190520, 8:35, Tank 1, Ambient,Treatment,26.97,NA,33.42,-59.2,"Got R^2 value of .981 and then got equation of the line through excel (0.5079x+63.373) and used it to calculate the pH, Converted using conductivity and temp http://www.fivecreeks.org/monitor/sal.shtml",,,
+20190521,20190520, 8:36, Tank 2, Heat,Treatment,29.07,NA,34.18,52.05,Converted using conductivity and temp http://www.fivecreeks.org/monitor/sal.shtml,,,
+20190521,20190520, 8:37, Tank 3, Heat,Treatment,28.82,NA,31.5,51.96,Converted using conductivity and temp http://www.fivecreeks.org/monitor/sal.shtml,,,
+20190521,20190520, 8:38, Tank 4, Ambient,Treatment,26.96,NA,32.7,51.87,Converted using conductivity and temp http://www.fivecreeks.org/monitor/sal.shtml,,,
+20190521,20190520, 8:39, Tank 5, Heat,Treatment,29.21,NA,32.3,53.52,Converted using conductivity and temp http://www.fivecreeks.org/monitor/sal.shtml,,,
+20190521,20190520, 8:40, Tank 6, Ambient,Treatment,26.92,NA,33.8,53.39,Converted using conductivity and temp http://www.fivecreeks.org/monitor/sal.shtml,,,
