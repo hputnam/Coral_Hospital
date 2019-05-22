@@ -67,7 +67,7 @@ daily <- daily
 min(na.omit(daily$Temperature))
 max(na.omit(daily$Temperature))
 
-plot(na.omit(daily$Sample.ID[1:84]), na.omit(daily$Temperature[1:84]), las=2)
+#plot(na.omit(daily$Sample.ID[1:84]), na.omit(daily$Temperature[1:84]), las=2)
 
 #merge with Seawater chemistry file
 SW.chem <- merge(pH.cals, daily, by="Calib.Date")
@@ -104,14 +104,14 @@ SW.chem$pH.Total<-phTris+(mvTris/1000-SW.chem$pH.MV/1000)/(R*(SW.chem$Temperatur
 pdf("~/MyProjects/Coral_Hospital/RAnalysis/Output/Daily_Measures_Treatments.pdf")
 par(mfrow=c(1,3))
 plot(SW.chem$Treatment, SW.chem$Temperature, xlab="Treatment", ylab="Temperature°C", ylim=c(26,30.5),las=2)
-plot(SW.chem$Treatment, SW.chem$pH.Total, xlab="Treatment", ylab="pH Total Scale", ylim=c(7.9,8.2),las=2)
+plot(SW.chem$Treatment, SW.chem$pH.Total, xlab="Treatment", ylab="pH Total Scale", ylim=c(7.4,8.1),las=2)
 plot(SW.chem$Treatment, SW.chem$Salinity, xlab="Treatment", ylab="Salinity psu", ylim=c(31,35),las=2)
 dev.off()
 
 pdf("~/MyProjects/Coral_Hospital/RAnalysis/Output/Daily_Measures_Tank.pdf")
 par(mfrow=c(1,3))
 plot(SW.chem$Tank, SW.chem$Temperature, xlab="Tank", ylab="Temperature°C", ylim=c(26,30.5),las=2)
-plot(SW.chem$Tank, SW.chem$pH.Total, xlab="Tank", ylab="pH Total Scale", ylim=c(7.9,8.2),las=2)
+plot(SW.chem$Tank, SW.chem$pH.Total, xlab="Tank", ylab="pH Total Scale", ylim=c(7.4,8.1),las=2)
 plot(SW.chem$Tank, SW.chem$Salinity, xlab="Tank", ylab="Salinity psu", ylim=c(31,36),las=2)
 dev.off()
 
