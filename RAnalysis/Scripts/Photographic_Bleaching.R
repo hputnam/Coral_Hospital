@@ -45,6 +45,11 @@ Data$Green.Norm.Coral <- Data$Green.Coral/Data$Green.Standard #normalize to colo
 Data$Blue.Norm.Coral <- Data$Blue.Coral/Data$Blue.Standard #normalize to color standard
 
 par(mfrow=c(1,3))
+plot(Data$Red.Coral ~ Data$Tank)
+plot(Data$Green.Coral ~ Data$Tank)
+plot(Data$Blue.Coral ~ Data$Tank)
+
+par(mfrow=c(1,3))
 plot(Data$Red.Norm.Coral ~ Data$Tank)
 plot(Data$Green.Norm.Coral ~ Data$Tank)
 plot(Data$Blue.Norm.Coral ~ Data$Tank)

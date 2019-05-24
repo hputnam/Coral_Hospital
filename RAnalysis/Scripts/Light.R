@@ -50,15 +50,6 @@ dev.off()
 mean6 <- aggregate(PAR ~ Tank*Position, data=LightData, FUN=mean)
 mean6
 
-pdf("Output/Light.Avg.Tank.pdf")
-plot(as.factor(LightData$Tank), LightData$PAR, xlab="Tank", ylab="PAR", ylim=c(0,800), las=2)
-# boxplot(PAR ~ Tank, data = licor1, outpch = NA) 
-stripchart(PAR ~ Tank, data = LightData, 
-           vertical = TRUE, method = "jitter", 
-           pch = 21, col = "blue", bg = "blue", 
-           add = TRUE) 
-dev.off()
-
 mean.trt <- aggregate(PAR ~ Treatment, data=LightData, FUN=mean)
 mean.trt
 

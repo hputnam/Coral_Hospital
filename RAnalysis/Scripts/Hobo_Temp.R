@@ -18,16 +18,16 @@ library(FSA)
 setwd("~/MyProjects/Coral_Hospital/RAnalysis/")
 
 ##### Empty tank Heater test #####
-Tank1 <- read.csv("Data/Hobo_Loggers/20190522/20190522_Tank_1.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
-Tank2 <- read.csv("Data/Hobo_Loggers/20190522/20190522_Tank_2.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank1 <- read.csv("Data/Hobo_Loggers/20190523/20190523_Tank_1.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank2 <- read.csv("Data/Hobo_Loggers/20190523/20190523_Tank_2.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank2 <- Tank2[1:nrow(Tank1),]
-Tank3 <- read.csv("Data/Hobo_Loggers/20190522/20190522_Tank_3.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank3 <- read.csv("Data/Hobo_Loggers/20190523/20190523_Tank_3.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank3 <- Tank3[1:nrow(Tank1),]
-Tank4 <- read.csv("Data/Hobo_Loggers/20190522/20190522_Tank_4.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank4 <- read.csv("Data/Hobo_Loggers/20190523/20190523_Tank_4.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank4 <- Tank4[1:nrow(Tank1),]
-Tank5 <- read.csv("Data/Hobo_Loggers/20190522/20190522_Tank_5.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank5 <- read.csv("Data/Hobo_Loggers/20190523/20190523_Tank_5.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank5 <- Tank5[1:nrow(Tank1),]
-Tank6 <- read.csv("Data/Hobo_Loggers/20190522/20190522_Tank_6.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank6 <- read.csv("Data/Hobo_Loggers/20190523/20190523_Tank_6.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank6 <- Tank6[1:nrow(Tank1),]
 
 data <- cbind(Tank1, Tank2$V3, Tank3$V3, Tank4$V3, Tank5$V3, Tank6$V3)
@@ -111,13 +111,13 @@ tnks <- c("Tank 1", "Tank 2","Tank 3", "Tank 4","Tank 5", "Tank 6")
 pdf("~/MyProjects/Coral_Hospital/RAnalysis/Output/Temps.pdf")
 #par(mfrow=c(1,3))
 par(mar=c(6,6,2,2)) #sets the bottom, left, top and right
-plot(data$Date.Time, data$Tank1, cex=0.2, col="lightblue", ylim=c(26,30), ylab="Temperature °C", xlab="Date and Time", las=2)
+plot(data$Date.Time, data$Tank1, cex=0.2, col="lightblue", ylim=c(26,31), ylab="Temperature °C", xlab="Date and Time", las=2)
 points(data$Date.Time, data$Tank2, cex=0.2, col="pink")
 points(data$Date.Time, data$Tank3, cex=0.2, col="coral")
 points(data$Date.Time, data$Tank4, cex=0.2, col="blue")
 points(data$Date.Time, data$Tank5, cex=0.2, col="red")
 points(data$Date.Time, data$Tank6, cex=0.2, col="darkblue")
-legend(data$Date.Time[5], 30, legend=tnks, col=tmp.col, cex=0.6, lty=1, box.lty=0)
+legend(data$Date.Time[5], 31, legend=tnks, col=tmp.col, cex=0.6, lty=1, box.lty=0)
 dev.off()
 
 x <- gather(data, "Date.Time")
