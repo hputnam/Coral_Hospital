@@ -178,7 +178,7 @@ Mcap.Means <- ddply(Mcap.Blch, c('Timepoint', 'Treatment'), summarize,
                   se = sd(Bleaching.Score, na.rm=T)/sqrt(N)) #SE
 Mcap.Means
 
-Mcap.Means$Timepoint <- factor(Mcap.Means$Timepoint, levels = c("Time0", "Time1")) # "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10", "Time11", "Time12", "Time13", "Time14", "Time15", "Time16"))
+Mcap.Means$Timepoint <- factor(Mcap.Means$Timepoint, levels = c("Time0", "Time1","Time2","Time3")) # "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10", "Time11", "Time12", "Time13", "Time14", "Time15", "Time16"))
 
 Fig.MC <- ggplot(Mcap.Means, aes(x=Timepoint, y=mean, group=Treatment)) + 
   geom_errorbar(aes(ymin=Mcap.Means$mean-Mcap.Means$se, ymax=Mcap.Means$mean+Mcap.Means$se), colour="black", width=.1, position = position_dodge(width = 0.1)) +
@@ -213,7 +213,7 @@ Pact.Means <- ddply(Pact.Blch, c('Timepoint', 'Treatment'), summarize,
                     N = sum(!is.na(Bleaching.Score)), # sample size
                     se = sd(Bleaching.Score, na.rm=T)/sqrt(N)) #SE
 Pact.Means
-Pact.Means$Timepoint <- factor(Pact.Means$Timepoint, levels = c("Time0", "Time1")) #, "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10", "Time11", "Time12", "Time13", "Time14", "Time15", "Time16"))
+Pact.Means$Timepoint <- factor(Pact.Means$Timepoint, levels = c("Time0", "Time1", "Time2", "Time3")) #, "Time3", "Time4", "Time5", "Time6", "Time7", "Time8", "Time9", "Time10", "Time11", "Time12", "Time13", "Time14", "Time15", "Time16"))
 
 Fig.PA <- ggplot(Pact.Means, aes(x=Timepoint, y=mean, group=Treatment)) + 
   geom_errorbar(aes(ymin=Pact.Means$mean-Pact.Means$se, ymax=Pact.Means$mean+Pact.Means$se), colour="black", width=.1, position = position_dodge(width = 0.1)) +
