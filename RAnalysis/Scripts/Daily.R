@@ -103,15 +103,15 @@ SW.chem$pH.Total<-phTris+(mvTris/1000-SW.chem$pH.MV/1000)/(R*(SW.chem$Temperatur
 ##### Treatment #####
 pdf("~/MyProjects/Coral_Hospital/RAnalysis/Output/Daily_Measures_Treatments.pdf")
 par(mfrow=c(1,3))
-plot(SW.chem$Treatment, SW.chem$Temperature, xlab="Treatment", ylab="Temperature°C", ylim=c(26,30.5),las=2)
-plot(SW.chem$Treatment, SW.chem$pH.Total, xlab="Treatment", ylab="pH Total Scale", ylim=c(7.4,8.1),las=2)
-plot(SW.chem$Treatment, SW.chem$Salinity, xlab="Treatment", ylab="Salinity psu", ylim=c(31,35),las=2)
+plot(SW.chem$Treatment, SW.chem$Temperature, xlab="Treatment", ylab="Temperature°C", ylim=c(26,32),las=2)
+plot(SW.chem$Treatment, SW.chem$pH.Total, xlab="Treatment", ylab="pH Total Scale", ylim=c(7.7,8.1),las=2)
+plot(SW.chem$Treatment, SW.chem$Salinity, xlab="Treatment", ylab="Salinity psu", ylim=c(31,36),las=2)
 dev.off()
 
 pdf("~/MyProjects/Coral_Hospital/RAnalysis/Output/Daily_Measures_Tank.pdf")
 par(mfrow=c(1,3))
-plot(SW.chem$Tank, SW.chem$Temperature, xlab="Tank", ylab="Temperature°C", ylim=c(26,30.5),las=2)
-plot(SW.chem$Tank, SW.chem$pH.Total, xlab="Tank", ylab="pH Total Scale", ylim=c(7.4,8.1),las=2)
+plot(SW.chem$Tank, SW.chem$Temperature, xlab="Tank", ylab="Temperature°C", ylim=c(26,32),las=2)
+plot(SW.chem$Tank, SW.chem$pH.Total, xlab="Tank", ylab="pH Total Scale", ylim=c(7.7,8.1),las=2)
 plot(SW.chem$Tank, SW.chem$Salinity, xlab="Tank", ylab="Salinity psu", ylim=c(31,36),las=2)
 dev.off()
 
