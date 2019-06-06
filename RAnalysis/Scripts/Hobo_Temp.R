@@ -20,16 +20,16 @@ setwd("~/MyProjects/Coral_Hospital/RAnalysis/")
 date <- "20190527"
 
 ##### Empty tank Heater test #####
-Tank1 <- read.csv("Data/Hobo_Loggers/20190602/20190602_Tank_1.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
-Tank2 <- read.csv("Data/Hobo_Loggers/20190602/20190602_Tank_2.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank1 <- read.csv("Data/Hobo_Loggers/20190605/20190605_Tank_1.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank2 <- read.csv("Data/Hobo_Loggers/20190605/20190605_Tank_2.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank2 <- Tank2[1:nrow(Tank1),]
-Tank3 <- read.csv("Data/Hobo_Loggers/20190602/20190602_Tank_3.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank3 <- read.csv("Data/Hobo_Loggers/20190605/20190605_Tank_3.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank3 <- Tank3[1:nrow(Tank1),]
-Tank4 <- read.csv("Data/Hobo_Loggers/20190602/20190602_Tank_4.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank4 <- read.csv("Data/Hobo_Loggers/20190605/20190605_Tank_4.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank4 <- Tank4[1:nrow(Tank1),]
-Tank5 <- read.csv("Data/Hobo_Loggers/20190602/20190602_Tank_5.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank5 <- read.csv("Data/Hobo_Loggers/20190605/20190605_Tank_5.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank5 <- Tank5[1:nrow(Tank1),]
-Tank6 <- read.csv("Data/Hobo_Loggers/20190602/20190602_Tank_6.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
+Tank6 <- read.csv("Data/Hobo_Loggers/20190605/20190605_Tank_6.csv", sep=",", skip=c(2), header=FALSE, na.strings = "NA")[ ,2:3]
 Tank6 <- Tank6[1:nrow(Tank1),]
 
 data <- cbind(Tank1, Tank2$V3, Tank3$V3, Tank4$V3, Tank5$V3, Tank6$V3)
