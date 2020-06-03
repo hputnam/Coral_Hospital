@@ -1,1 +1,3 @@
-# Coral_Hospital
+Coral reef systems are under global threat due to warming and acidifying oceans. Understanding the response of the coral holobiont to environmental change is crucial to aid conservation efforts. The most pressing problem is “coral bleaching”, usually precipitated by prolonged thermal stress that disrupts the algal symbiosis sustaining the holobiont. We used metabolomics to understand how the coral holobiont metabolome responds to heat stress with the goal of identifying diagnostic markers prior to bleaching onset. We studied the heat tolerant *Montipora capitata* and heat sensitive *Pocillopora acuta* coral species from the Hawaiian reef system in Kāneʻohe Bay, Oʻahu. 
+
+This repository contains physical environmental data (temperature, light, pH, and flow), coral color score data, and analytical code as described in the methods of Williams et al. 
