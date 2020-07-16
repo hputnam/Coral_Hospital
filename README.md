@@ -1,5 +1,6 @@
-# Title: Metabolomic shifts associated with heat stress in coral holobionts Authors: Amanda Williams1,†, Eric N. Chiles2,†, Dennis Conetta3, Jananan S. Pathmanathan4,
-Phillip A. Cleves5, Hollie M. Putnam3, Xiaoyang Su2,6* and Debashish Bhattacharya4*
+# Metabolomic shifts associated with heat stress in coral holobionts 
+
+## Amanda Williams1,†, Eric N. Chiles2,†, Dennis Conetta3, Jananan S. Pathmanathan4, Phillip A. Cleves5, Hollie M. Putnam3, Xiaoyang Su2,6* and Debashish Bhattacharya4*
 
 ### Affiliations:
 
