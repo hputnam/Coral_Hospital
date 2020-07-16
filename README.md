@@ -4,11 +4,16 @@
 
 ### Affiliations:
 
-1Microbial Biology Graduate Program, Rutgers University, New Brunswick, NJ 08901, USA 
-2Metabolomics Shared Resource, Rutgers Cancer Institute of New Jersey, Rutgers University, New Brunswick, NJ 08901, USA 
-3Department of Biological Sciences, University of Rhode Island, Kingston, RI 02881, USA 
+1Microbial Biology Graduate Program, Rutgers University, New Brunswick, NJ 08901, USA
+
+2Metabolomics Shared Resource, Rutgers Cancer Institute of New Jersey, Rutgers University, New Brunswick, NJ 08901, USA
+
+3Department of Biological Sciences, University of Rhode Island, Kingston, RI 02881, USA
+
 4Department of Biochemistry and Microbiology, Rutgers University, New Brunswick, NJ 08901, USA
+
 5Department of Genetics, Stanford University, Stanford, CA 94305, USA
+
 6Department of Medicine, Division of Endocrinology, Robert Wood Johnson Medical School, Rutgers University, New Brunswick, NJ 08901, USA
 
 _†Equal contribution_
